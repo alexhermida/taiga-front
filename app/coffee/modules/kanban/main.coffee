@@ -299,38 +299,43 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
     prepareBulkUpdateData: (uses, field="kanban_order") ->
         return _.map(uses, (x) -> {"us_id": x.id, "order": x[field]})
 
-    moveUs: (ctx, us, oldStatusId, newStatusId, index) ->
-        us = @kanbanUserstoriesService.getUsModel(us.get('id'))
-        newStatus = @scope.usStatusById[newStatusId]
+    moveUs: (ctx, usList, oldStatusId, newStatusId, index) ->
         @.cleanSelectedUss()
+        
+        usList = _.map usList, (us) => 
+            return @kanbanUserstoriesService.getUsModel(us.get('id'))
 
-        if newStatus.is_archived and !@scope.usByStatus.get(newStatusId.toString())
-            moveUpdateData = @kanbanUserstoriesService.moveToEnd(us.id, newStatusId)
-        else
-            moveUpdateData = @kanbanUserstoriesService.move(us.id, newStatusId, index)
+        data = @kanbanUserstoriesService.move(usList, newStatusId, index)
 
-        params = {
-            include_attachments: true,
-            include_tasks: true
-        }
+        promise = @rs.userstories.bulkUpdateKanbanOrder
 
-        options = {
-            headers: {
-                "set-orders": JSON.stringify(moveUpdateData.set_orders)
+        # saving
+        if usList.length > 1 and oldStatusId == newStatusId # drag multiple in backlog
+            promise = @rs.userstories.bulkUpdateKanbanOrder(@scope.projectId, data.usList)
+        else  # drag single or different status
+            options = {
+                headers: {
+                    "set-orders": JSON.stringify(data.setOrders)
+                }
             }
-        }
 
-        promise = @repo.save(us, true, params, options, true)
+            params = {
+                include_attachments: true,
+                include_tasks: true
+            }
 
-        promise = promise.then (result) =>
+            promises = _.map usList, (us) => 
+                @repo.save(us, true, params, options, true)
+
+            promise = @q.all(promises)
+
+        promise.then (result) =>
             headers = result[1]
 
             if headers && headers['taiga-info-order-updated']
                 order = JSON.parse(headers['taiga-info-order-updated'])
                 @kanbanUserstoriesService.assignOrders(order)
-            @scope.$broadcast("redraw:wip")
-
-        return promise
+            @scope.$broadcast("redraw:wip")                  
 
 module.controller("KanbanController", KanbanController)
 

@@ -93,47 +93,66 @@ class KanbanUserstoriesService extends taiga.Service
 
         @.refresh()
 
-    move: (id, statusId, index) ->
-        us = @.getUsModel(id)
-
+    move: (usList, statusId, index) ->
         usByStatus = _.filter @.userstoriesRaw, (it) =>
             return it.status == statusId
-        console.log(usByStatus)
 
         usByStatus = _.sortBy usByStatus, (it) => @.order[it.id]
 
-        if us.status != statusId
-            usByStatusWithoutMoved = _.filter usByStatus, (it) => it.id != id
-            beforeDestination = _.slice(usByStatusWithoutMoved, 0, index)
-            afterDestination = _.slice(usByStatusWithoutMoved, index)
+        usByStatusWithoutMoved = _.filter usByStatus, (listIt) ->
+            return !_.find usList, (moveIt) -> return listIt.id == moveIt.id
 
-            setOrders = {}
+        beforeDestination = _.slice(usByStatusWithoutMoved, 0, index)
+        afterDestination = _.slice(usByStatusWithoutMoved, index)
 
-            previous = beforeDestination[beforeDestination.length - 1]
+        setOrders = {}
 
-            previousWithTheSameOrder = _.filter beforeDestination, (it) =>
-                @.order[it.id] == @.order[previous.id]
+        previous = beforeDestination[beforeDestination.length - 1]
 
+        previousWithTheSameOrder = _.filter beforeDestination, (it) =>
+            @.order[it.id] == @.order[previous.id]
+
+        if previousWithTheSameOrder.length > 1
+            for it in previousWithTheSameOrder
+                setOrders[it.id] = @.order[it.id]
+
+        modifiedUs = []
+        setPreviousOrders = []
+
+        if !previous
+            startIndex = 0
+        else if previous
+            startIndex = @.order[previous.id] + 1
+            previousWithTheSameOrder = _.filter(beforeDestination, (it) =>
+                it.kanban_order == @.order[previous.id]
+            )
+            # we must send the USs previous to the dropped USs to tell the backend
+            # which USs are before the dropped USs, if they have the same value to
+            # order, the backend doens't know after which one do you want to drop
+            # the USs
             if previousWithTheSameOrder.length > 1
-                for it in previousWithTheSameOrder
-                    setOrders[it.id] = @.order[it.id]
+                setPreviousOrders = _.map(previousWithTheSameOrder, (it) =>
+                    {us_id: it.id, order: @.order[it.id]}
+                )
 
-            if !previous and (!afterDestination or afterDestination.length == 0)
-                @.order[us.id] = 0
-            else if !previous and afterDestination and afterDestination.length > 0
-                @.order[us.id] = @.order[afterDestination[0].id] - 1
-            else if previous
-                @.order[us.id] = @.order[previous.id] + 1
+        for us, key in usList
+            us.status = statusId
+            us.kanban_order = startIndex + key
+            @.order[us.id] = us.kanban_order
 
-            for it, key in afterDestination
-                @.order[it.id] = @.order[us.id] + key + 1
+            modifiedUs.push({us_id: us.id, order: us.kanban_order})      
 
-        us.status = statusId
-        us.kanban_order = @.order[us.id]
+        startIndex = @.order[usList[usList.length - 1].id]
+
+        for it, key in afterDestination # increase position of the us after the dragged us's
+            @.order[it.id] = startIndex + key + 1        
 
         @.refresh()
 
-        return {"us_id": us.id, "order": @.order[us.id], "set_orders": setOrders}
+        return {
+            usList: modifiedUs.concat(setPreviousOrders),
+            set_orders: setOrders
+        }
 
     moveToEnd: (id, statusId) ->
         us = @.getUsModel(id)

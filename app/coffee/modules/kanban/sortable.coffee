@@ -81,14 +81,26 @@ KanbanSortableDirective = ($repo, $rs, $rootscope) ->
                 newStatusId = newParentScope.s.id
                 dragMultipleItems = window.dragMultiple.stop()
 
-                $scope.$apply ->
-                    for item in dragMultipleItems
-                        itemEl = $(item)
-                        itemUs = itemEl.scope().us
-                        itemIndex = itemEl.index()
-                        #deleteElement(itemEl)
+                # if it is not drag multiple
+                if !dragMultipleItems.length
+                    dragMultipleItems = [item]
 
-                        $rootscope.$broadcast("kanban:us:move", itemUs, itemUs.getIn(['model', 'status']), newStatusId, itemIndex)
+                firstElement = dragMultipleItems[0]     
+                index = $(firstElement).index()  
+                newStatus = newParentScope.s.id
+                oldStatus = $(item).scope().us.getIn(['model', 'status'])
+
+                sameContainer = newStatus == oldStatus
+
+                usList = _.map dragMultipleItems, (item) -> $(item).scope().us    
+
+                $scope.$apply ->
+                    if !sameContainer          
+                        _.each dragMultipleItems, (item) => 
+                            itemEl = $(item)
+                            deleteElement(itemEl)
+
+                    $rootscope.$broadcast("kanban:us:move", usList, oldStatus, newStatus, index)
 
             scroll = autoScroll(containers, {
                 margin: 100,
