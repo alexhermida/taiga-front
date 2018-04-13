@@ -30,6 +30,9 @@
 .assigned-to-list {
     @include user-list;
     margin-top: 1rem;
+    .selected {
+        margin-bottom: 1rem;
+    }
     .user-list-single {
         &:hover,
         &.selected {
@@ -43,7 +46,6 @@
         &.is-active {
             background: rgba(lighten($primary-light, 30%), .3);
             cursor: pointer;
-            margin-bottom: 1rem;
             position: relative;
             transition: background .3s linear;
             transition-delay: .1s;

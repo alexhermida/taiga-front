@@ -699,43 +699,55 @@ module.directive("tgLbAssignedto", ["lightboxService", "lightboxKeyboardNavigati
 ## Assigned Users Lightbox directive
 #############################################################################
 
-AssignedUsersLightboxDirective = ($repo, lightboxService, lightboxKeyboardNavigationService, $template, $compile, avatarService) ->
+AssignedUsersLightboxDirective = (lightboxService, lightboxKeyboardNavigationService, $template, $compile, avatarService) ->
     link = ($scope, $el, $attrs) ->
+        selectedUsers = []
         selectedItem = null
         usersTemplate = $template.get("common/lightbox/lightbox-assigned-to-users.html", true)
 
-        # Get prefiltered users by text
-        # and without now assigned users.
-        getFilteredUsers = (text="") ->
-            _filterUsers = (text, user) ->
-                if selectedItem && _.find(selectedItem.assigned_users, (x) -> x == user.id)
-                    return false
+        normalizeString = (string) ->
+            normalizedString = string
+            normalizedString = normalizedString.replace("Á", "A").replace("Ä", "A").replace("À", "A")
+            normalizedString = normalizedString.replace("É", "E").replace("Ë", "E").replace("È", "E")
+            normalizedString = normalizedString.replace("Í", "I").replace("Ï", "I").replace("Ì", "I")
+            normalizedString = normalizedString.replace("Ó", "O").replace("Ö", "O").replace("Ò", "O")
+            normalizedString = normalizedString.replace("Ú", "U").replace("Ü", "U").replace("Ù", "U")
+            return normalizedString
 
-                username = user.full_name_display.toUpperCase()
-                text = text.toUpperCase()
-                return _.includes(username, text)
+        filterUsers = (text, user) ->
+            username = user.full_name_display.toUpperCase()
+            username = normalizeString(username)
+            text = text.toUpperCase()
+            text = normalizeString(text)
+            return _.includes(username, text)
 
+        render = (assignedUsersIds, text) ->
             users = _.clone($scope.activeUsers, true)
-            users = _.filter(users, _.partial(_filterUsers, text))
-            return users
+            users = _.sortBy(users, (o) -> if o.id is $scope.user.id then 0 else o.id)
+            
+            selected = []
+            _.map users, (user) ->
+                if user.id in assignedUsersIds
+                    user.avatar = avatarService.getAvatar(user)
+                    selected.push(user)
 
-        # Render the specific list of users.
-        render = (users) ->
-            visibleUsers = _.slice(users, 0, 5)
+            users = _.filter(users, _.partial(filterUsers, text)) if text?
 
-            visibleUsers = _.map visibleUsers, (user) ->
-                user.avatar = avatarService.getAvatar(user)
-
-                return user
-
+            visible = []
+            _.map users, (user) ->
+                if user.id not in assignedUsersIds
+                    user.avatar = avatarService.getAvatar(user)
+                    visible.push(user)
+ 
             ctx = {
-                selected: false
-                users: visibleUsers
-                showMore: users.length > 5
+                selected: selected
+                users: _.slice(visible, 0, 5)
+                showMore: visible.length > 5
             }
 
             html = usersTemplate(ctx)
             html = $compile(html)($scope)
+
             $el.find(".assigned-to-list").html(html)
 
         closeLightbox = () ->
@@ -744,30 +756,36 @@ AssignedUsersLightboxDirective = ($repo, lightboxService, lightboxKeyboardNaviga
 
         $scope.$on "assigned-user:add", (ctx, item) ->
             selectedItem = item
-            users = getFilteredUsers()
-            render(users)
-
+            selectedUsers = item.assigned_users
+            render(selectedUsers)
             lightboxService.open($el).then ->
-                $el.find("input").focus()
+                $el.find('input').focus()
                 lightboxKeyboardNavigationService.init($el)
 
         $scope.$watch "usersSearch", (searchingText) ->
-            if not searchingText?
-                return
+            if searchingText?
+                render(selectedUsers, searchingText)
+                $el.find('input').focus()
 
-            users = getFilteredUsers(searchingText)
-            render(users)
-            $el.find("input").focus()
-
-        $el.on "click", ".user-list-single", debounce 200, (event) ->
-            closeLightbox()
-
+        $el.on "click", ".user-list-single", (event) ->
             event.preventDefault()
             target = angular.element(event.currentTarget)
 
+            closeLightbox()
+
+            $scope.$apply ->
+                $scope.$broadcast("assigned-user:added", target.data("user-id"), selectedItem)
+                $scope.usersSearch = null
+
+        $el.on "click", ".remove-assigned-to", (event) ->
+            event.preventDefault()
+            event.stopPropagation()
+
+            closeLightbox()
+
             $scope.$apply ->
                 $scope.usersSearch = null
-                $scope.$broadcast("assigned-user:added", target.data("user-id"), selectedItem)
+                $scope.$broadcast("assigned-to:added", null, selectedItem)
 
         $el.on "click", ".close", (event) ->
             event.preventDefault()
@@ -781,11 +799,11 @@ AssignedUsersLightboxDirective = ($repo, lightboxService, lightboxKeyboardNaviga
             $el.off()
 
     return {
-        templateUrl: "common/lightbox/lightbox-assigned-users.html"
+        templateUrl: "common/lightbox/lightbox-assigned-to.html"
         link:link
     }
 
-module.directive("tgLbAssignedUsers", ["$tgRepo", "lightboxService", "lightboxKeyboardNavigationService", "$tgTemplate", "$compile", "tgAvatarService", AssignedUsersLightboxDirective])
+module.directive("tgLbAssignedUsers", ["lightboxService", "lightboxKeyboardNavigationService", "$tgTemplate", "$compile", "tgAvatarService", AssignedUsersLightboxDirective])
 
 
 #############################################################################
