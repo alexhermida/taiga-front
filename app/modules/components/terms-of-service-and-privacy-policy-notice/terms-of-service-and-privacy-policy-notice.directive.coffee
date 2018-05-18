@@ -27,6 +27,7 @@ TermsOfServiceAndPrivacyPolicyNoticeDirective = ($config) ->
     link = (scope, el, attrs) ->
         scope.privacyPolicyUrl = $config.get("privacyPolicyUrl")
         scope.termsOfServiceUrl = $config.get("termsOfServiceUrl")
+        scope.accepted_terms = false
 
     return {
         restrict: "AE",
