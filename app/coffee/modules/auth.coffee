@@ -68,10 +68,11 @@ class AuthService extends taiga.Service
                  "$translate",
                  "tgCurrentUserService",
                  "tgThemeService",
-                 "$tgAnalytics"]
+                 "$tgAnalytics",
+                 "tgTermsAnnouncementService"]
 
     constructor: (@rootscope, @storage, @model, @rs, @http, @urls, @config, @translate, @currentUserService,
-                  @themeService, @analytics) ->
+                  @themeService, @analytics, @termsAnnouncementService) ->
         super()
 
         userModel = @.getUser()
@@ -234,6 +235,12 @@ class AuthService extends taiga.Service
         data = _.clone(data, false)
         return @http.post(url, data)
 
+    showTerms: (data) ->
+        user = @.getUser()
+        if not user or user.read_new_terms
+            return
+        @termsAnnouncementService.show('GDPR', 'General Data Protection Regulation - Read more!')
+
 module.service("$tgAuth", AuthService)
 
 
@@ -285,6 +292,8 @@ LoginDirective = ($auth, $confirm, $location, $config, $routeParams, $navUrls, $
         onSuccess = (response) ->
             $events.setupConnection()
             $analytics.trackEvent("auth", "login", "user login", 1)
+
+            $auth.showTerms()
 
             if $scope.nextUrl.indexOf('http') == 0
                 $window.location.href = $scope.nextUrl
@@ -368,6 +377,8 @@ RegisterDirective = ($auth, $confirm, $location, $navUrls, $config, $routeParams
 
             if not form.validate()
                 return
+
+            $scope.data['accepted_terms'] = $scope.accepted_terms
 
             promise = $auth.register($scope.data)
             promise.then(onSuccessSubmit, onErrorSubmit)
@@ -557,6 +568,7 @@ InvitationDirective = ($auth, $confirm, $location, $config, $params, $navUrls, $
             if not registerForm.validate()
                 return
 
+            $scope.dataRegister['accepted_terms'] = $scope.accepted_terms
             promise = $auth.acceptInvitiationWithNewUser($scope.dataRegister)
             promise.then(onSuccessSubmitRegister, onErrorSubmitRegister)
 
