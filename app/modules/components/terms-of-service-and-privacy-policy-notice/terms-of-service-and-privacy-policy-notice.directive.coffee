@@ -31,7 +31,6 @@ TermsOfServiceAndPrivacyPolicyNoticeDirective = ($config) ->
 
     return {
         restrict: "AE",
-        scope: {},
         link: link,
         templateUrl: "components/terms-of-service-and-privacy-policy-notice/terms-of-service-and-privacy-policy-notice.html"
     }
