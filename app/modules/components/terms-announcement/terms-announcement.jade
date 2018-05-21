@@ -1,4 +1,4 @@
-.terms-announcement(ng-class="{visible: vm.open}")
+.terms-announcement(ng-class="{visible: vm.open && privacyPolicyUrl && termsOfServiceUrl}")
     .terms-announcement-inner
         img.anouncement-decoration(src="/#{v}/images/notification-decoration.png", alt="Loading...")
         .text
