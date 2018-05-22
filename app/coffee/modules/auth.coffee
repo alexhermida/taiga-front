@@ -378,8 +378,6 @@ RegisterDirective = ($auth, $confirm, $location, $navUrls, $config, $routeParams
             if not form.validate()
                 return
 
-            $scope.data['accepted_terms'] = $scope.accepted_terms
-
             promise = $auth.register($scope.data)
             promise.then(onSuccessSubmit, onErrorSubmit)
 
@@ -568,7 +566,6 @@ InvitationDirective = ($auth, $confirm, $location, $config, $params, $navUrls, $
             if not registerForm.validate()
                 return
 
-            $scope.dataRegister['accepted_terms'] = $scope.accepted_terms
             promise = $auth.acceptInvitiationWithNewUser($scope.dataRegister)
             promise.then(onSuccessSubmitRegister, onErrorSubmitRegister)
 

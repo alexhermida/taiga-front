@@ -46,12 +46,12 @@ div.register-form-container(tg-register)
             )
 
         //- Only displays terms notice when terms plugin is loaded.
-        tg-terms-of-service-and-privacy-policy-notice
+        tg-terms-of-service-and-privacy-policy-notice(target="data.accepted_terms")
 
         fieldset
             button.button-register.button-green.submit-button(
                 type="submit"
-                ng-disabled="accepted_terms == false"
+                ng-disabled="data.accepted_terms == false"
                 title="{{'REGISTER_FORM.ACTION_SIGN_UP' | translate}}"
                 translate="REGISTER_FORM.ACTION_SIGN_UP"
             )

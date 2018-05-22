@@ -29,7 +29,6 @@ TermsAnnouncementDirective = (TermsAnnouncementService, $repo, $auth, $config) -
         scope.termsOfServiceUrl = $config.get("termsOfServiceUrl")
         scope.GDPRUrl = $config.get("GDPRUrl")
 
-
     return {
         restrict: "AE",
         scope: {},
