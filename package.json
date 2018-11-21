@@ -64,7 +64,7 @@
     "gulp-rename": "^1.2.0",
     "gulp-replace": "^0.5.3",
     "gulp-sass": "^4.0.2",
-    "gulp-scss-lint": "^0.7.1",
+    "gulp-scss-lint": "^0.6.1",
     "gulp-size": "^2.0.0",
     "gulp-sourcemaps": "^2.0.0-alpha",
     "gulp-template": "^4.0.0",
