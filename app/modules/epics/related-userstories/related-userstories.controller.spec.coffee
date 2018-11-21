@@ -52,7 +52,7 @@ describe "RelatedUserStories", ->
         inject ($controller) ->
             controller = $controller
 
-    it "load related userstories", (done) ->
+    it "load related userstories", () ->
         ctrl = controller "RelatedUserStoriesCtrl"
         userstories = Immutable.fromJS([
             {
@@ -71,9 +71,8 @@ describe "RelatedUserStories", ->
 
         ctrl.loadRelatedUserstories().then () ->
             expect(ctrl.userstories).is.equal(userstories)
-            done()
 
-    it "reorderRelatedUserstory", (done) ->
+    it "reorderRelatedUserstory", () ->
         ctrl = controller "RelatedUserStoriesCtrl"
         userstories = Immutable.fromJS([
             {
@@ -104,4 +103,3 @@ describe "RelatedUserStories", ->
 
         ctrl.reorderRelatedUserstory(userstories.get(1), 0).then () ->
             expect(ctrl.userstories).is.equal(reorderedUserstories)
-            done()

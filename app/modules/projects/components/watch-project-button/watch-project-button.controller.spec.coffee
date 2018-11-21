@@ -70,7 +70,7 @@ describe "WatchProjectButton", ->
 
         expect(ctrl.showWatchOptions).to.be.false
 
-    it "watch", (done) ->
+    it "watch", () ->
         notifyLevel = 5
         project = Immutable.fromJS({
             id: 3
@@ -93,8 +93,6 @@ describe "WatchProjectButton", ->
             expect(ctrl.showWatchOptions).to.be.false
             expect(ctrl.loading).to.be.false
 
-            done()
-
     it "watch the same option", () ->
         notifyLevel = 5
         project = Immutable.fromJS({
@@ -108,7 +106,7 @@ describe "WatchProjectButton", ->
         result = ctrl.watch(notifyLevel)
         expect(result).to.be.falsy
 
-    it "watch, notify error", (done) ->
+    it "watch, notify error", () ->
         notifyLevel = 5
         project = Immutable.fromJS({
             id: 3
@@ -125,9 +123,7 @@ describe "WatchProjectButton", ->
             expect(ctrl.showWatchOptions).to.be.false
             expect(ctrl.loading).to.be.false
 
-            done()
-
-    it "unwatch", (done) ->
+    it "unwatch", () ->
         project = Immutable.fromJS({
             id: 3
         })
@@ -148,9 +144,7 @@ describe "WatchProjectButton", ->
             expect(mocks.tgWatchProjectButton.unwatch).to.be.calledOnce
             expect(ctrl.showWatchOptions).to.be.false
 
-            done()
-
-    it "unwatch, notify error", (done) ->
+    it "unwatch, notify error", () ->
         project = Immutable.fromJS({
             id: 3
         })
@@ -164,5 +158,3 @@ describe "WatchProjectButton", ->
         ctrl.unwatch().finally () ->
             expect(mocks.tgConfirm.notify.withArgs("error")).to.be.calledOnce
             expect(ctrl.showWatchOptions).to.be.false
-
-            done()

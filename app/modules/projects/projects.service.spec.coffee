@@ -101,7 +101,7 @@ describe "tgProjectsService", ->
 
         expect(projectsService.getProjectStats(projectId)).to.be.true
 
-    it "getProjectBySlug", (done) ->
+    it "getProjectBySlug", () ->
         projectSlug = "project-slug"
         project = Immutable.fromJS({id: 2, url: 'url-2', tags: ['xx', 'yy', 'aa'], tags_colors: {xx: "red", yy: "blue", aa: "white"}})
 
@@ -119,9 +119,7 @@ describe "tgProjectsService", ->
                 }
             )
 
-            done()
-
-    it "getProjectsByUserId", (done) ->
+    it "getProjectsByUserId", () ->
         projectId = 3
 
         projects = Immutable.fromJS([
@@ -146,9 +144,7 @@ describe "tgProjectsService", ->
                 }
             ])
 
-            done()
-
-    it "validateTransferToken", (done) ->
+    it "validateTransferToken", () ->
         projectId = 3
 
         tokenValidation = Immutable.fromJS({})
@@ -159,4 +155,3 @@ describe "tgProjectsService", ->
 
         projectsService.transferValidateToken(projectId).then (projects) ->
             expect(projects.toJS()).to.be.eql({})
-            done()

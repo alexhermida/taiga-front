@@ -59,7 +59,7 @@ describe "LikeProjectButton", ->
 
         _setup()
 
-    it "toggleLike false -> true", (done) ->
+    it "toggleLike false -> true", () ->
         project = Immutable.fromJS({
             id: 3,
             is_fan: false
@@ -80,9 +80,7 @@ describe "LikeProjectButton", ->
             expect(mocks.tgLikeProjectButton.like).to.be.calledOnce
             expect(ctrl.loading).to.be.false
 
-            done()
-
-    it "toggleLike false -> true, notify error", (done) ->
+    it "toggleLike false -> true, notify error", () ->
         project = Immutable.fromJS({
             id: 3,
             is_fan: false
@@ -95,9 +93,8 @@ describe "LikeProjectButton", ->
 
         ctrl.toggleLike().finally () ->
             expect(mocks.tgConfirm.notify.withArgs("error")).to.be.calledOnce
-            done()
 
-    it "toggleLike true -> false", (done) ->
+    it "toggleLike true -> false", () ->
         project = Immutable.fromJS({
             is_fan: true
         })
@@ -117,9 +114,7 @@ describe "LikeProjectButton", ->
             expect(mocks.tgLikeProjectButton.unlike).to.be.calledOnce
             expect(ctrl.loading).to.be.false
 
-            done()
-
-    it "toggleLike true -> false, notify error", (done) ->
+    it "toggleLike true -> false, notify error", () ->
         project = Immutable.fromJS({
             is_fan: true
         })
@@ -131,4 +126,3 @@ describe "LikeProjectButton", ->
 
         ctrl.toggleLike().finally () ->
             expect(mocks.tgConfirm.notify.withArgs("error")).to.be.calledOnce
-            done()

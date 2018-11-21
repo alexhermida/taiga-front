@@ -95,7 +95,7 @@ describe "TrelloImportCtrl", ->
             expect(ctrl.step).to.be.equal('project-select-trello')
             expect(mocks.trelloService.fetchProjects).have.been.called
 
-    it "on select project reload projects", (done) ->
+    it "on select project reload projects", () ->
         project = Immutable.fromJS({
             id: 1,
             name: "project-name"
@@ -113,7 +113,6 @@ describe "TrelloImportCtrl", ->
             expect(ctrl.fetchingUsers).to.be.false
             expect(ctrl.step).to.be.equal('project-form-trello')
             expect(ctrl.project).to.be.equal(project)
-            done()
 
     it "on save project details reload users", () ->
         project = Immutable.fromJS({
@@ -128,7 +127,7 @@ describe "TrelloImportCtrl", ->
         expect(ctrl.project).to.be.equal(project)
 
 
-    it "on select user init import", (done) ->
+    it "on select user init import", () ->
         users = Immutable.fromJS([
             {
                 id: 0
@@ -172,5 +171,3 @@ describe "TrelloImportCtrl", ->
             expect(loaderObj.start).have.been.called
             expect(loaderObj.stop).have.been.called
             expect(mocks.trelloService.importProject).have.been.calledWith('project-name', 'project-description', 1, users, false, true)
-
-            done()

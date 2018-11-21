@@ -74,7 +74,7 @@ describe "RelatedUserstoryRow", ->
 
         RelatedUserstoryRowCtrl = controller "RelatedUserstoryRowCtrl"
 
-    it "set avatar data", (done) ->
+    it "set avatar data", () ->
         RelatedUserstoryRowCtrl.userstory = Immutable.fromJS({
             assigned_to_extra_info: {
                 id: 3
@@ -89,9 +89,8 @@ describe "RelatedUserstoryRow", ->
         RelatedUserstoryRowCtrl.setAvatarData()
         expect(mocks.tgAvatarService.getAvatar).have.been.calledWith(member)
         expect(RelatedUserstoryRowCtrl.avatar).is.equal(avatar)
-        done()
 
-    it "get assigned to full name display for existing user", (done) ->
+    it "get assigned to full name display for existing user", () ->
         RelatedUserstoryRowCtrl.userstory = Immutable.fromJS({
             assigned_to: 1
             assigned_to_extra_info: {
@@ -100,17 +99,15 @@ describe "RelatedUserstoryRow", ->
         })
 
         expect(RelatedUserstoryRowCtrl.getAssignedToFullNameDisplay()).is.equal("Beta tester")
-        done()
 
-    it "get assigned to full name display for unassigned user story", (done) ->
+    it "get assigned to full name display for unassigned user story", () ->
         RelatedUserstoryRowCtrl.userstory = Immutable.fromJS({
             assigned_to: null
         })
         mocks.translate.instant.withArgs("COMMON.ASSIGNED_TO.NOT_ASSIGNED").returns("Unassigned")
         expect(RelatedUserstoryRowCtrl.getAssignedToFullNameDisplay()).is.equal("Unassigned")
-        done()
 
-    it "delete related userstory success", (done) ->
+    it "delete related userstory success", () ->
         RelatedUserstoryRowCtrl.epic = Immutable.fromJS({
             subject: "SampleEpic"
             id: 123
@@ -136,9 +133,8 @@ describe "RelatedUserstoryRow", ->
         RelatedUserstoryRowCtrl.onDeleteRelatedUserstory().then () ->
             expect(RelatedUserstoryRowCtrl.loadRelatedUserstories).have.been.calledOnce
             expect(askResponse.finish).have.been.calledOnce
-            done()
 
-    it "delete related userstory error", (done) ->
+    it "delete related userstory error", () ->
         RelatedUserstoryRowCtrl.epic = Immutable.fromJS({
             epicSubject: "SampleEpic"
             id: 123
@@ -166,4 +162,3 @@ describe "RelatedUserstoryRow", ->
             expect(RelatedUserstoryRowCtrl.loadRelatedUserstories).to.not.have.been.called
             expect(askResponse.finish).have.been.calledWith(false)
             expect(mocks.tgConfirm.notify).have.been.calledWith("error", null, "error message")
-            done()

@@ -28,7 +28,7 @@ describe "tgUserTimelinePaginationSequenceService", ->
         module "taigaUserTimeline"
         _inject()
 
-    it "get remote items to reach the min", (done) ->
+    it "get remote items to reach the min", () ->
         config = {}
 
         page1 = Immutable.Map({
@@ -62,9 +62,7 @@ describe "tgUserTimelinePaginationSequenceService", ->
             expect(result.items).to.have.length(11)
             expect(result.next).to.be.true
 
-            done()
-
-    it "get items until the last page", (done) ->
+    it "get items until the last page", () ->
         config = {}
 
         page1 = Immutable.Map({
@@ -93,9 +91,7 @@ describe "tgUserTimelinePaginationSequenceService", ->
             expect(result.items).to.have.length(5)
             expect(result.next).to.be.false
 
-            done()
-
-    it "increase pagination every page call", (done) ->
+    it "increase pagination every page call", () ->
         config = {}
 
         page1 = Immutable.Map({
@@ -125,10 +121,7 @@ describe "tgUserTimelinePaginationSequenceService", ->
                 expect(result.items).to.have.length(2)
                 expect(result.next).to.be.true
 
-                done()
-
-
-    it "map items", (done) ->
+    it "map items", () ->
         config = {}
 
         page1 = Immutable.Map({
@@ -144,7 +137,7 @@ describe "tgUserTimelinePaginationSequenceService", ->
 
         config.minItems = 1
 
-        config.map = (item) => item + 1
+        config.map = (item) -> item + 1
 
         seq = userTimelinePaginationSequenceService.generate(config)
 
@@ -152,5 +145,3 @@ describe "tgUserTimelinePaginationSequenceService", ->
             result = result.toJS()
 
             expect(result.items).to.be.eql([2, 3, 4])
-
-            done()

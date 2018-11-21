@@ -150,8 +150,6 @@ describe "ImportProjectCtrl", ->
         ctrl.start().then () ->
             expect(mocks.location.search).have.been.calledWith({token: "token2"})
 
-            done()
-
     it "initialize form with github", (done) ->
         searchResult = {
             code: 123,
@@ -169,8 +167,6 @@ describe "ImportProjectCtrl", ->
         ctrl.start().then () ->
             expect(mocks.location.search).have.been.calledWith({token: "token2"})
 
-            done()
-
     it "initialize form with asana", (done) ->
         searchResult = {
             code: 123,
@@ -187,8 +183,6 @@ describe "ImportProjectCtrl", ->
 
         ctrl.start().then () ->
             expect(mocks.location.search).have.been.calledWith({token: encodeURIComponent(JSON.stringify("token2"))})
-
-            done()
 
     it "select trello import", () ->
         ctrl = $controller("ImportProjectCtrl")

@@ -61,7 +61,7 @@ describe "AddMembersController", ->
             controller = $controller
 
 
-    it "get user contacts", (done) ->
+    it "get user contacts", () ->
 
         userId = 1
         excludeProjectId = 1
@@ -85,7 +85,6 @@ describe "AddMembersController", ->
 
         addMembersCtrl._getContacts().then () ->
             expect(addMembersCtrl.contacts).to.be.equal(contacts)
-            done()
 
     it "filterContacts", () ->
 

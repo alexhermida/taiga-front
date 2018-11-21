@@ -110,7 +110,7 @@ describe "InviteMembersFormController", ->
         expect(inviteMembersFormCtrl.showWarningMessage).to.be.true
 
 
-    it "send invites", (done) ->
+    it "send invites", () ->
         inviteMembersFormCtrl = controller "InviteMembersFormCtrl"
         inviteMembersFormCtrl.project = Immutable.fromJS(
             {'id': 1}
@@ -134,4 +134,3 @@ describe "InviteMembersFormController", ->
             expect(inviteMembersFormCtrl.loading).to.be.false
             expect(mocks.rootScope.$broadcast).to.have.been.calledWith("membersform:new:success")
             expect(mocks.tgConfirm.notify).to.have.been.calledWith("success")
-            done()

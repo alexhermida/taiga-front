@@ -43,7 +43,7 @@ describe "ProfileHints", ->
         inject (_$controller_) ->
             $controller = _$controller_
 
-    it "random hint generator", (done) ->
+    it "random hint generator", () ->
         mocks.translateService.instant.returns("fill")
 
         ctrl = $controller("ProfileHints")
@@ -52,5 +52,4 @@ describe "ProfileHints", ->
                 expect(ctrl.hint.title).to.be.equal("fill")
                 expect(ctrl.hint.text).to.be.equal("fill")
                 expect(ctrl.hint.linkText).to.have.length.above(1)
-                done()
         )

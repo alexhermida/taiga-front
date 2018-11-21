@@ -84,7 +84,7 @@ describe "tgProjectService", ->
 
         expect(projectService.sectionsBreadcrumb.toJS()).to.be.eql(breadcrumb)
 
-    it "set project if the project slug has changed", (done) ->
+    it "set project if the project slug has changed", () ->
         projectService.setProject = sinon.spy()
 
         project = Immutable.Map({
@@ -101,7 +101,6 @@ describe "tgProjectService", ->
             .then () -> projectService.setProjectBySlug('slug-2')
             .finally () ->
                 expect(projectService.setProject).to.be.called.twice
-                done()
 
     it "set project and set active members", () ->
         project = Immutable.fromJS({
@@ -120,7 +119,7 @@ describe "tgProjectService", ->
         expect(projectService.project).to.be.equal(project)
         expect(projectService.activeMembers.size).to.be.equal(2)
 
-    it "fetch project", (done) ->
+    it "fetch project", () ->
         project = Immutable.Map({
             id: 1,
             slug: 'slug',
@@ -133,7 +132,6 @@ describe "tgProjectService", ->
 
         projectService.fetchProject().then () ->
             expect(projectService.project).to.be.equal(project)
-            done()
 
     it "clean project", () ->
         projectService._section = "fakeSection"

@@ -102,7 +102,7 @@ describe "tgImportProjectService", ->
 
         _setup()
 
-    it "import success async mode", (done) ->
+    it "import success async mode", () ->
         result = {
             status: 202,
             data: {
@@ -116,9 +116,8 @@ describe "tgImportProjectService", ->
 
         importProjectService.importSuccess(result).then () ->
             expect(mocks.confirm.success).have.been.calledOnce
-            done()
 
-    it "import success sync mode", (done) ->
+    it "import success sync mode", () ->
         result = {
             status: 201,
             data: {
@@ -135,7 +134,6 @@ describe "tgImportProjectService", ->
         importProjectService.importSuccess(result).then () ->
             expect(mocks.location.path).have.been.calledWith('url')
             expect(mocks.confirm.notify).have.been.calledWith('success', 'msg')
-            done()
 
     it "private get restriction errors, private & member error", () ->
         result = {

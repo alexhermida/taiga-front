@@ -85,7 +85,7 @@ describe "tgCurrentUserService", ->
 
             expect(currentUserService.setUser).to.be.calledOnce
 
-    it "set user and load user info", (done) ->
+    it "set user and load user info", () ->
         user = Immutable.fromJS({id: 1, name: "fake1"})
 
         projects = Immutable.fromJS([
@@ -106,9 +106,7 @@ describe "tgCurrentUserService", ->
             expect(currentUserService.projectsById.size).to.be.equal(5)
             expect(currentUserService.projectsById.get("3").get("name")).to.be.equal("fake3")
 
-            done()
-
-    it "bulkUpdateProjectsOrder and reload projects", (done) ->
+    it "bulkUpdateProjectsOrder and reload projects", () ->
         fakeData = [{id: 1, id: 2}]
 
         currentUserService.loadProjects = sinon.stub()
@@ -118,9 +116,7 @@ describe "tgCurrentUserService", ->
         currentUserService.bulkUpdateProjectsOrder(fakeData).then () ->
             expect(currentUserService.loadProjects).to.be.callOnce
 
-            done()
-
-    it "loadProject and set it", (done) ->
+    it "loadProject and set it", () ->
         user = Immutable.fromJS({id: 1, name: "fake1"})
         project = Immutable.fromJS({id: 2, name: "fake2"})
 
@@ -131,8 +127,6 @@ describe "tgCurrentUserService", ->
 
         currentUserService.loadProjects().then () ->
             expect(currentUserService.setProjects).to.have.been.calledWith(project)
-
-            done()
 
     it "setProject", () ->
         projectsRaw = [
@@ -190,15 +184,13 @@ describe "tgCurrentUserService", ->
             dashboard: false
         })
 
-    it "load joyride config", (done) ->
+    it "load joyride config", () ->
         mocks.resources.user.getUserStorage.withArgs('joyride').promise().resolve(true)
 
         currentUserService.loadJoyRideConfig().then (config) ->
             expect(config).to.be.true
 
-            done()
-
-    it "create default joyride config", (done) ->
+    it "create default joyride config", () ->
         mocks.resources.user.getUserStorage.withArgs('joyride').promise().reject(new Error('error'))
 
         currentUserService.loadJoyRideConfig().then (config) ->
@@ -210,8 +202,6 @@ describe "tgCurrentUserService", ->
 
             expect(mocks.resources.user.createUserStorage).to.have.been.calledWith('joyride', joyride)
             expect(config).to.be.eql(joyride)
-
-            done()
 
     it "the user can't create private projects if they reach the maximum number of private projects", () ->
         user = Immutable.fromJS({

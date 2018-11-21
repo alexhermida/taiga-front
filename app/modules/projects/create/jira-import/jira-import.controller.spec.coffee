@@ -91,7 +91,7 @@ describe "JiraImportCtrl", ->
         expect(ctrl.step).to.be.equal('project-select-jira')
         expect(mocks.jiraService.fetchProjects).have.been.called
 
-    it "on select project reload projects", (done) ->
+    it "on select project reload projects", () ->
         project = Immutable.fromJS({
             id: 1,
             name: "project-name"
@@ -109,7 +109,6 @@ describe "JiraImportCtrl", ->
             expect(ctrl.fetchingUsers).to.be.false
             expect(ctrl.step).to.be.equal('project-form-jira')
             expect(ctrl.project).to.be.equal(project)
-            done()
 
     it "on save project details reload users", () ->
         project = Immutable.fromJS({
@@ -123,7 +122,7 @@ describe "JiraImportCtrl", ->
         expect(ctrl.step).to.be.equal('project-members-jira')
         expect(ctrl.project).to.be.equal(project)
 
-    it "on select user init import", (done) ->
+    it "on select user init import", () ->
         users = Immutable.fromJS([
             {
                 id: 0
@@ -167,5 +166,3 @@ describe "JiraImportCtrl", ->
             expect(loaderObj.start).have.been.called
             expect(loaderObj.stop).have.been.called
             expect(mocks.jiraService.importProject).have.been.calledWith('project-name', 'project-description', 1, users, false, true)
-
-            done()

@@ -62,7 +62,7 @@ describe "LbContactProject", ->
         inject ($controller) ->
             controller = $controller
 
-    it "Contact Project", (done) ->
+    it "Contact Project", () ->
         ctrl = controller("ContactProjectLbCtrl")
         ctrl.contact = {
             message: 'abcde'
@@ -82,4 +82,3 @@ describe "LbContactProject", ->
             expect(mocks.tglightboxService.closeAll).have.been.called
             expect(ctrl.sendingFeedback).to.be.false
             expect(mocks.tgConfirm.notify).have.been.calledWith("success")
-            done()

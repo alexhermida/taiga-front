@@ -61,7 +61,7 @@ describe "tgDiscoverProjectsService", ->
         _setup()
         _inject()
 
-    it "fetch most liked", (done) ->
+    it "fetch most liked", () ->
         params = {test: 1, discover_mode: true}
 
         mocks.resources.projects.getProjects.withArgs(sinon.match(params), false).promise().resolve({
@@ -82,9 +82,7 @@ describe "tgDiscoverProjectsService", ->
             expect(result).to.have.length(5)
             expect(result[0].decorate).to.be.ok
 
-            done()
-
-    it "fetch most active", (done) ->
+    it "fetch most active", () ->
         params = {test: 1, discover_mode: true}
 
         mocks.resources.projects.getProjects.withArgs(sinon.match(params), false).promise().resolve({
@@ -105,9 +103,7 @@ describe "tgDiscoverProjectsService", ->
             expect(result).to.have.length(5)
             expect(result[0].decorate).to.be.ok
 
-            done()
-
-    it "fetch featured", (done) ->
+    it "fetch featured", () ->
         params = {is_featured: true, discover_mode: true}
         mocks.resources.projects.getProjects.withArgs(sinon.match(params), false).promise().resolve({
             data: [
@@ -127,8 +123,6 @@ describe "tgDiscoverProjectsService", ->
             expect(result).to.have.length(4)
             expect(result[0].decorate).to.be.ok
 
-            done()
-
     it "reset search list", () ->
         discoverProjectsService._searchResult = 'xxx'
 
@@ -136,7 +130,7 @@ describe "tgDiscoverProjectsService", ->
 
         expect(discoverProjectsService._searchResult.size).to.be.equal(0)
 
-    it "fetch stats", (done) ->
+    it "fetch stats", () ->
         mocks.resources.stats.discover.promise().resolve(Immutable.fromJS({
             projects: {
                 total: 3
@@ -146,9 +140,7 @@ describe "tgDiscoverProjectsService", ->
         discoverProjectsService.fetchStats().then () ->
             expect(discoverProjectsService._projectsCount).to.be.equal(3)
 
-            done()
-
-    it "fetch search", (done) ->
+    it "fetch search", () ->
         params = {test: 1, discover_mode: true}
 
         result = {
@@ -175,5 +167,3 @@ describe "tgDiscoverProjectsService", ->
             expect(result).to.have.length(5)
 
             expect(result[4].decorate).to.be.ok
-
-            done()

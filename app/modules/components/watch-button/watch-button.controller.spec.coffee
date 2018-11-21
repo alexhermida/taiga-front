@@ -54,7 +54,7 @@ describe "WatchButton", ->
         module "taigaComponents"
         _setup()
 
-    it "watch", (done) ->
+    it "watch", () ->
         $scope = $rootScope.$new()
 
         mocks.onWatch = sinon.stub().promise()
@@ -76,9 +76,7 @@ describe "WatchButton", ->
             expect(mocks.onWatch).to.be.calledOnce
             expect(ctrl.loading).to.be.false
 
-            done()
-
-    it "unwatch", (done) ->
+    it "unwatch", () ->
         $scope = $rootScope.$new()
 
         mocks.onUnwatch = sinon.stub().promise()
@@ -98,9 +96,6 @@ describe "WatchButton", ->
         promise.finally () ->
             expect(mocks.onUnwatch).to.be.calledOnce
             expect(ctrl.loading).to.be.false
-
-            done()
-
 
     it "get permissions", () ->
         $scope = $rootScope.$new()

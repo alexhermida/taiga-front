@@ -74,7 +74,6 @@ describe "UserService", ->
 
             expect(contacts.get(0).get("name")).to.be.equal('fake1')
 
-            done()
 
     it "get user contacts", (done) ->
         userId = 2
@@ -90,7 +89,6 @@ describe "UserService", ->
 
         userService.getContacts(userId).then (_contacts_) ->
             expect(_contacts_).to.be.eql(contacts)
-            done()
 
         $rootScope.$apply()
 
@@ -113,7 +111,6 @@ describe "UserService", ->
 
         userService.getLiked(userId, pageNumber, objectType, textQuery).then (_liked_) ->
             expect(_liked_).to.be.eql(liked)
-            done()
 
         $rootScope.$apply()
 
@@ -136,7 +133,6 @@ describe "UserService", ->
 
         userService.getVoted(userId, pageNumber, objectType, textQuery).then (_voted_) ->
             expect(_voted_).to.be.eql(voted)
-            done()
 
         $rootScope.$apply()
 
@@ -159,7 +155,6 @@ describe "UserService", ->
 
         userService.getWatched(userId, pageNumber, objectType, textQuery).then (_watched_) ->
             expect(_watched_).to.be.eql(watched)
-            done()
 
         $rootScope.$apply()
 
@@ -173,4 +168,3 @@ describe "UserService", ->
 
         userService.getUserByUserName(username).then (_user_) ->
             expect(_user_).to.be.eql(user)
-            done()

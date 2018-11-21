@@ -32,46 +32,42 @@ describe "UserActivityService", ->
         module "taigaCommon"
         _inject()
 
-    it "inactive", (done) ->
+    it "inactive", () ->
         active = sinon.spy()
         userActivityService.onInactive () ->
-            expect(active).not.to.have.been.called;
-            done()
+            expect(active).not.to.have.been.called
 
         userActivityService.onActive(active)
 
         $timeout.flush()
 
-    it "unsubscribe inactive", (done) ->
+    it "unsubscribe inactive", () ->
         unsubscribe = userActivityService.onInactive () ->
             unsubscribe()
 
             expect(userActivityService.subscriptionsInactive).to.have.length(0)
 
-            done()
 
         expect(userActivityService.subscriptionsInactive).to.have.length(1)
 
         $timeout.flush()
 
-    it "active", (done) ->
+    it "active", () ->
         inactive = sinon.spy()
         userActivityService.onInactive(inactive)
 
         userActivityService.onActive () ->
-            expect(inactive).to.have.been.called;
-            done()
+            expect(inactive).to.have.been.called
 
         $timeout.flush()
         userActivityService.resetTimer()
 
-    it "unsubscribe active", (done) ->
+    it "unsubscribe active", () ->
         unsubscribe = userActivityService.onActive () ->
             unsubscribe()
 
             expect(userActivityService.subscriptionsActive).to.have.length(0)
 
-            done()
 
         expect(userActivityService.subscriptionsActive).to.have.length(1)
 

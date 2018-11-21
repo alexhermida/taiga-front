@@ -102,7 +102,7 @@ describe "tgAttachmentsFullService", ->
         expect(attachmentsFullService.regenerate).to.be.calledOnce
 
     describe "add attachments", () ->
-        it "valid attachment", (done) ->
+        it "valid attachment", () ->
             projectId = 1
             objId = 2
             type = "issue"
@@ -126,7 +126,6 @@ describe "tgAttachmentsFullService", ->
             attachmentsFullService.addAttachment(projectId, objId, type, file).then () ->
                 expect(mocks.rootScope.$broadcast).have.been.calledWith('attachment:create')
                 expect(attachmentsFullService.attachments.count()).to.be.equal(1)
-                done()
 
         it "invalid attachment", () ->
             file = Immutable.fromJS({
@@ -149,7 +148,7 @@ describe "tgAttachmentsFullService", ->
                 expect(attachmentsFullService._attachments.count()).to.be.equal(0)
 
     describe "deleteattachments", () ->
-        it "success attachment", (done) ->
+        it "success attachment", () ->
             mocks.attachmentsService.delete = sinon.stub()
             mocks.attachmentsService.delete.withArgs('us', 2).promise().resolve()
 
@@ -174,9 +173,8 @@ describe "tgAttachmentsFullService", ->
             attachmentsFullService.deleteAttachment(deleteFile, 'us').then () ->
                 expect(attachmentsFullService.regenerate).have.been.calledOnce
                 expect(attachmentsFullService.attachments.size).to.be.equal(3)
-                done()
 
-    it "reorder attachments", (done) ->
+    it "reorder attachments", () ->
         attachments = Immutable.fromJS([
             {file: {id: 0, is_deprecated: false, order: 0}},
             {file: {id: 1, is_deprecated: true, order: 1}},
@@ -192,7 +190,6 @@ describe "tgAttachmentsFullService", ->
 
         attachmentsFullService.reorderAttachment('us', attachments.get(1), 0).then () ->
             expect(attachmentsFullService.attachments.get(0)).to.be.equal(attachments.get(1))
-            done()
 
     it "update attachment", () ->
         attachments = Immutable.fromJS([

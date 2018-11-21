@@ -49,7 +49,7 @@ describe "ProfileLiked", ->
         _mocks()
         _inject()
 
-    it "load paginated items", (done) ->
+    it "load paginated items", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileLiked", $scope, {user: user})
 
@@ -92,9 +92,8 @@ describe "ProfileLiked", ->
                 expect(ctrl.scrollDisabled).to.be.true
                 expect(ctrl.type).to.be.null
                 expect(ctrl.q).to.be.null
-                done()
 
-    it "filter items by text query", (done) ->
+    it "filter items by text query", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileLiked", $scope, {user: user})
 
@@ -125,9 +124,8 @@ describe "ProfileLiked", ->
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.null
             expect(ctrl.q).to.be.equal(textQuery)
-            done()
 
-    it "show loading spinner during the call to the api", (done) ->
+    it "show loading spinner during the call to the api", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileLiked", $scope, {user: user})
 
@@ -152,9 +150,8 @@ describe "ProfileLiked", ->
 
         promise.then () =>
             expect(ctrl.isLoading).to.be.false
-            done()
 
-    it "show no results placeholder", (done) ->
+    it "show no results placeholder", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileLiked", $scope, {user: user})
 
@@ -169,7 +166,6 @@ describe "ProfileLiked", ->
 
         ctrl.loadItems().then () =>
             expect(ctrl.hasNoResults).to.be.true
-            done()
 
 
 describe "ProfileVoted", ->
@@ -204,7 +200,7 @@ describe "ProfileVoted", ->
         _mocks()
         _inject()
 
-    it "load paginated items", (done) ->
+    it "load paginated items", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileVoted", $scope, {user: user})
 
@@ -247,9 +243,8 @@ describe "ProfileVoted", ->
                 expect(ctrl.scrollDisabled).to.be.true
                 expect(ctrl.type).to.be.null
                 expect(ctrl.q).to.be.null
-                done()
 
-    it "filter items by text query", (done) ->
+    it "filter items by text query", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileVoted", $scope, {user: user})
 
@@ -280,9 +275,8 @@ describe "ProfileVoted", ->
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.null
             expect(ctrl.q).to.be.equal(textQuery)
-            done()
 
-    it "show only items of epics", (done) ->
+    it "show only items of epics", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileVoted", $scope, {user: user})
 
@@ -310,10 +304,9 @@ describe "ProfileVoted", ->
             expect(ctrl.items.equals(expectItems)).to.be.true
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.type
-            expect(ctrl.q).to.be.null
-            done()
+            expect(ctrl.q).to.be.nul
 
-    it "show only items of user stories", (done) ->
+    it "show only items of user stories", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileVoted", $scope, {user: user})
 
@@ -341,10 +334,9 @@ describe "ProfileVoted", ->
             expect(ctrl.items.equals(expectItems)).to.be.true
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.type
-            expect(ctrl.q).to.be.null
-            done()
+            expect(ctrl.q).to.be.nul
 
-    it "show only items of tasks", (done) ->
+    it "show only items of tasks", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileVoted", $scope, {user: user})
 
@@ -372,10 +364,9 @@ describe "ProfileVoted", ->
             expect(ctrl.items.equals(expectItems)).to.be.true
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.type
-            expect(ctrl.q).to.be.null
-            done()
+            expect(ctrl.q).to.be.nul
 
-    it "show only items of issues", (done) ->
+    it "show only items of issues", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileVoted", $scope, {user: user})
 
@@ -403,10 +394,9 @@ describe "ProfileVoted", ->
             expect(ctrl.items.equals(expectItems)).to.be.true
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.type
-            expect(ctrl.q).to.be.null
-            done()
+            expect(ctrl.q).to.be.nul
 
-    it "show loading spinner during the call to the api", (done) ->
+    it "show loading spinner during the call to the api", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileVoted", $scope, {user: user})
 
@@ -430,10 +420,9 @@ describe "ProfileVoted", ->
         mockPromise.resolve(items)
 
         promise.then () =>
-            expect(ctrl.isLoading).to.be.false
-            done()
+            expect(ctrl.isLoading).to.be.fals
 
-    it "show no results placeholder", (done) ->
+    it "show no results placeholder", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileVoted", $scope, {user: user})
 
@@ -447,8 +436,7 @@ describe "ProfileVoted", ->
         expect(ctrl.hasNoResults).to.be.undefined
 
         ctrl.loadItems().then () =>
-            expect(ctrl.hasNoResults).to.be.true
-            done()
+            expect(ctrl.hasNoResults).to.be.tru
 
 describe "ProfileWatched", ->
     $controller = null
@@ -482,7 +470,7 @@ describe "ProfileWatched", ->
         _mocks()
         _inject()
 
-    it "load paginated items", (done) ->
+    it "load paginated items", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileWatched", $scope, {user: user})
 
@@ -525,9 +513,8 @@ describe "ProfileWatched", ->
                 expect(ctrl.scrollDisabled).to.be.true
                 expect(ctrl.type).to.be.null
                 expect(ctrl.q).to.be.null
-                done()
 
-    it "filter items by text query", (done) ->
+    it "filter items by text query", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileWatched", $scope, {user: user})
 
@@ -558,9 +545,8 @@ describe "ProfileWatched", ->
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.null
             expect(ctrl.q).to.be.equal(textQuery)
-            done()
 
-    it "show only items of projects", (done) ->
+    it "show only items of projects", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileWatched", $scope, {user: user})
 
@@ -588,10 +574,9 @@ describe "ProfileWatched", ->
             expect(ctrl.items.equals(expectItems)).to.be.true
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.type
-            expect(ctrl.q).to.be.null
-            done()
+            expect(ctrl.q).to.be.nul
 
-    it "show only items of epics", (done) ->
+    it "show only items of epics", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileWatched", $scope, {user: user})
 
@@ -619,10 +604,9 @@ describe "ProfileWatched", ->
             expect(ctrl.items.equals(expectItems)).to.be.true
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.type
-            expect(ctrl.q).to.be.null
-            done()
+            expect(ctrl.q).to.be.nul
 
-    it "show only items of user stories", (done) ->
+    it "show only items of user stories", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileWatched", $scope, {user: user})
 
@@ -650,10 +634,9 @@ describe "ProfileWatched", ->
             expect(ctrl.items.equals(expectItems)).to.be.true
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.type
-            expect(ctrl.q).to.be.null
-            done()
+            expect(ctrl.q).to.be.nul
 
-    it "show only items of tasks", (done) ->
+    it "show only items of tasks", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileWatched", $scope, {user: user})
 
@@ -681,10 +664,9 @@ describe "ProfileWatched", ->
             expect(ctrl.items.equals(expectItems)).to.be.true
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.type
-            expect(ctrl.q).to.be.null
-            done()
+            expect(ctrl.q).to.be.nul
 
-    it "show only items of issues", (done) ->
+    it "show only items of issues", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileWatched", $scope, {user: user})
 
@@ -712,10 +694,9 @@ describe "ProfileWatched", ->
             expect(ctrl.items.equals(expectItems)).to.be.true
             expect(ctrl.scrollDisabled).to.be.false
             expect(ctrl.type).to.be.type
-            expect(ctrl.q).to.be.null
-            done()
+            expect(ctrl.q).to.be.nul
 
-    it "show loading spinner during the call to the api", (done) ->
+    it "show loading spinner during the call to the api", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileWatched", $scope, {user: user})
 
@@ -739,10 +720,9 @@ describe "ProfileWatched", ->
         mockPromise.resolve(items)
 
         promise.then () =>
-            expect(ctrl.isLoading).to.be.false
-            done()
+            expect(ctrl.isLoading).to.be.fals
 
-    it "show no results placeholder", (done) ->
+    it "show no results placeholder", () ->
         $scope = $rootScope.$new()
         ctrl = $controller("ProfileWatched", $scope, {user: user})
 
@@ -756,5 +736,4 @@ describe "ProfileWatched", ->
         expect(ctrl.hasNoResults).to.be.undefined
 
         ctrl.loadItems().then () =>
-            expect(ctrl.hasNoResults).to.be.true
-            done()
+            expect(ctrl.hasNoResults).to.be.tru

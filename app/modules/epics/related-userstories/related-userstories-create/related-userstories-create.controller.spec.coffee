@@ -81,7 +81,7 @@ describe "RelatedUserstoriesCreate", ->
 
         RelatedUserstoriesCreateCtrl = controller "RelatedUserstoriesCreateCtrl"
 
-    it "select project", (done) ->
+    it "select project", () ->
         # This test tries to reproduce a project containing userstories 11 and 12 where 11
         # is yet related to the epic
         RelatedUserstoriesCreateCtrl.epicUserstories = Immutable.fromJS([
@@ -109,9 +109,8 @@ describe "RelatedUserstoriesCreate", ->
         promise = mocks.tgResources.userstories.listInAllProjects.withArgs({project:1, q:""}).promise().resolve(userstories)
         RelatedUserstoriesCreateCtrl.filterUss(1, "").then () ->
             expect(RelatedUserstoriesCreateCtrl.projectUserstories.toJS()).to.eql(filteredUserstories.toJS())
-            done()
 
-    it "save related user story success", (done) ->
+    it "save related user story success", () ->
         RelatedUserstoriesCreateCtrl.validateExistingUserstoryForm = sinon.stub()
         RelatedUserstoriesCreateCtrl.validateExistingUserstoryForm.returns(true)
         onSavedRelatedUserstoryCallback = sinon.stub()
@@ -127,9 +126,8 @@ describe "RelatedUserstoriesCreate", ->
             expect(mocks.tgResources.epics.addRelatedUserstory).have.been.calledWith(1, 11)
             expect(mocks.tgAnalytics.trackEvent).have.been.calledWith("epic related user story", "create", "create related user story on epic", 1)
             expect(RelatedUserstoriesCreateCtrl.loadRelatedUserstories).have.been.calledOnce
-            done()
 
-    it "save related user story error", (done) ->
+    it "save related user story error", () ->
         RelatedUserstoriesCreateCtrl.validateExistingUserstoryForm = sinon.stub()
         RelatedUserstoriesCreateCtrl.validateExistingUserstoryForm.returns(true)
         onSavedRelatedUserstoryCallback = sinon.stub()
@@ -145,9 +143,8 @@ describe "RelatedUserstoriesCreate", ->
             expect(mocks.tgResources.epics.addRelatedUserstory).have.been.calledWith(1, 11)
             expect(mocks.tgConfirm.notify).have.been.calledWith("error")
             expect(RelatedUserstoriesCreateCtrl.setExistingUserstoryFormErrors).have.been.calledOnce
-            done()
 
-    it "bulk create related user stories success", (done) ->
+    it "bulk create related user stories success", () ->
         RelatedUserstoriesCreateCtrl.validateNewUserstoryForm = sinon.stub()
         RelatedUserstoriesCreateCtrl.validateNewUserstoryForm.returns(true)
         onCreatedRelatedUserstoryCallback = sinon.stub()
@@ -163,9 +160,8 @@ describe "RelatedUserstoriesCreate", ->
             expect(mocks.tgResources.epics.bulkCreateRelatedUserStories).have.been.calledWith(1, 22, 'a\nb')
             expect(mocks.tgAnalytics.trackEvent).have.been.calledWith("epic related user story", "create", "create related user story on epic", 1)
             expect(RelatedUserstoriesCreateCtrl.loadRelatedUserstories).have.been.calledOnce
-            done()
 
-    it "bulk create related user stories error", (done) ->
+    it "bulk create related user stories error", () ->
         RelatedUserstoriesCreateCtrl.validateNewUserstoryForm = sinon.stub()
         RelatedUserstoriesCreateCtrl.validateNewUserstoryForm.returns(true)
         onCreatedRelatedUserstoryCallback = sinon.stub()
@@ -181,4 +177,3 @@ describe "RelatedUserstoriesCreate", ->
             expect(mocks.tgResources.epics.bulkCreateRelatedUserStories).have.been.calledWith(1, 22, 'a\nb')
             expect(mocks.tgConfirm.notify).have.been.calledWith("error")
             expect(RelatedUserstoriesCreateCtrl.setNewUserstoryFormErrors).have.been.calledOnce
-            done()

@@ -115,7 +115,7 @@ describe "EpicsDashboard", ->
         ctrl = controller("EpicsDashboardCtrl")
         expect(mocks.tgAppMetaService.setfn).have.been.called
 
-    it "load data because epics panel is enabled and user has permissions", (done) ->
+    it "load data because epics panel is enabled and user has permissions", () ->
         ctrl = controller("EpicsDashboardCtrl")
 
         mocks.tgProjectService.setProjectBySlug
@@ -130,9 +130,8 @@ describe "EpicsDashboard", ->
             expect(mocks.tgErrorHandlingService.permissionDenied).not.have.been.called
             expect(mocks.tgErrorHandlingService.notFound).not.have.been.called
             expect(mocks.tgEpicsService.fetchEpics).have.been.called
-            done()
 
-    it "not load data because epics panel is not enabled", (done) ->
+    it "not load data because epics panel is not enabled", () ->
         ctrl = controller("EpicsDashboardCtrl")
 
         mocks.tgProjectService.setProjectBySlug
@@ -147,9 +146,8 @@ describe "EpicsDashboard", ->
             expect(mocks.tgErrorHandlingService.permissionDenied).not.have.been.called
             expect(mocks.tgErrorHandlingService.notFound).have.been.called
             expect(mocks.tgEpicsService.fetchEpics).not.have.been.called
-            done()
 
-    it "not load data because user has not permissions", (done) ->
+    it "not load data because user has not permissions", () ->
         ctrl = controller("EpicsDashboardCtrl")
 
         mocks.tgProjectService.setProjectBySlug
@@ -164,9 +162,8 @@ describe "EpicsDashboard", ->
             expect(mocks.tgErrorHandlingService.permissionDenied).have.been.called
             expect(mocks.tgErrorHandlingService.notFound).not.have.been.called
             expect(mocks.tgEpicsService.fetchEpics).not.have.been.called
-            done()
 
-    it "not load data because epics panel is not enabled and user has not permissions", (done) ->
+    it "not load data because epics panel is not enabled and user has not permissions", () ->
         ctrl = controller("EpicsDashboardCtrl")
 
         mocks.tgProjectService.setProjectBySlug
@@ -181,4 +178,3 @@ describe "EpicsDashboard", ->
             expect(mocks.tgErrorHandlingService.permissionDenied).not.have.been.called
             expect(mocks.tgErrorHandlingService.notFound).have.been.called
             expect(mocks.tgEpicsService.fetchEpics).not.have.been.called
-            done()

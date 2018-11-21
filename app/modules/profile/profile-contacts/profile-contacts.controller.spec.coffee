@@ -55,7 +55,7 @@ describe "ProfileContacts", ->
         _mocks()
         _inject()
 
-    it "load current user contacts", (done) ->
+    it "load current user contacts", () ->
         user = Immutable.fromJS({id: 2})
 
         contacts = [
@@ -77,9 +77,8 @@ describe "ProfileContacts", ->
         ctrl.loadContacts().then () ->
             expect(ctrl.contacts).to.be.equal(contacts)
             expect(ctrl.isCurrentUser).to.be.true
-            done()
 
-    it "load user contacts", (done) ->
+    it "load user contacts", () ->
         user = Immutable.fromJS({id: 2})
         user2 = Immutable.fromJS({id: 3})
 
@@ -102,4 +101,3 @@ describe "ProfileContacts", ->
         ctrl.loadContacts().then () ->
             expect(ctrl.contacts).to.be.equal(contacts)
             expect(ctrl.isCurrentUser).to.be.false
-            done()

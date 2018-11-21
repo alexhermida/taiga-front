@@ -62,7 +62,7 @@ describe "ImportProjectMembersCtrl", ->
 
         _setup()
 
-    it "fetch user info", (done) ->
+    it "fetch user info", () ->
         ctrl = $controller("ImportProjectMembersCtrl")
 
         ctrl.refreshSelectableUsers = sinon.spy()
@@ -72,7 +72,6 @@ describe "ImportProjectMembersCtrl", ->
         ctrl.fetchUser().then () ->
             expect(ctrl.userContacts).to.be.equal('contacts')
             expect(ctrl.refreshSelectableUsers).have.been.called
-            done()
 
     it "search user", () ->
         ctrl = $controller("ImportProjectMembersCtrl")

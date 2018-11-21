@@ -87,7 +87,7 @@ describe "EpicRow", ->
         expect(data.validateForm).have.been.called
         expect(mocks.tgEpicsService.createEpic).not.have.been.called
 
-    it "create Epic successfully", (done) ->
+    it "create Epic successfully", () ->
         mocks.tgProjectService.project.toJS.withArgs().returns(
             {id: 1, default_epic_status: 1}
         )
@@ -113,4 +113,3 @@ describe "EpicRow", ->
         createEpicCtrl.createEpic().then () ->
             expect(data.validateForm).have.been.called
             expect(createEpicCtrl.onCreateEpic).have.been.called
-            done()

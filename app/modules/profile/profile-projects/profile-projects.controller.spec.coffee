@@ -65,7 +65,7 @@ describe "ProfileProjects", ->
         _mocks()
         _inject()
 
-    it "load projects with contacts attached", (done) ->
+    it "load projects with contacts attached", () ->
         user = Immutable.fromJS({id: 2})
         projects = [
             {id: 1},
@@ -90,4 +90,3 @@ describe "ProfileProjects", ->
 
         ctrl.loadProjects().then () ->
             expect(ctrl.projects).to.be.equal(projectsWithContacts)
-            done()

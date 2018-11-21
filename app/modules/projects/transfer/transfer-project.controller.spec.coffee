@@ -111,7 +111,7 @@ describe "TransferProject", ->
         _mocks()
         _inject()
 
-    it "invalid token", (done) ->
+    it "invalid token", () ->
         project = Immutable.fromJS({
             id: 1
         })
@@ -128,9 +128,8 @@ describe "TransferProject", ->
         ctrl.project = project
         ctrl.initialize().then () ->
             expect(mocks.errorHandlingService.notfound).have.been.called
-            done()
 
-    it "valid token private project with max projects for user", (done) ->
+    it "valid token private project with max projects for user", () ->
         project = Immutable.fromJS({
             id: 1
             is_private: true
@@ -153,9 +152,8 @@ describe "TransferProject", ->
             expect(ctrl.ownerMessage).to.be.equal("ADMIN.PROJECT_TRANSFER.OWNER_MESSAGE.PRIVATE")
             expect(ctrl.maxProjects).to.be.equal(1)
             expect(ctrl.currentProjects).to.be.equal(1)
-            done()
 
-      it "valid token private project without max projects for user", (done) ->
+      it "valid token private project without max projects for user", () ->
           project = Immutable.fromJS({
               id: 1
               is_private: true
@@ -179,9 +177,9 @@ describe "TransferProject", ->
               expect(ctrl.ownerMessage).to.be.equal("ADMIN.PROJECT_TRANSFER.OWNER_MESSAGE.PRIVATE")
               expect(ctrl.maxProjects).to.be.equal("UNLIMITED_PROJECTS")
               expect(ctrl.currentProjects).to.be.equal(1)
-              done()
 
-    it "valid token public project with max projects for user", (done) ->
+
+    it "valid token public project with max projects for user", () ->
         project = Immutable.fromJS({
             id: 1
             is_public: true
@@ -204,9 +202,8 @@ describe "TransferProject", ->
             expect(ctrl.ownerMessage).to.be.equal("ADMIN.PROJECT_TRANSFER.OWNER_MESSAGE.PUBLIC")
             expect(ctrl.maxProjects).to.be.equal(1)
             expect(ctrl.currentProjects).to.be.equal(1)
-            done()
 
-      it "valid token public project without max projects for user", (done) ->
+      it "valid token public project without max projects for user", () ->
           project = Immutable.fromJS({
               id: 1
               is_public: true
@@ -230,9 +227,9 @@ describe "TransferProject", ->
               expect(ctrl.ownerMessage).to.be.equal("ADMIN.PROJECT_TRANSFER.OWNER_MESSAGE.PUBLIC")
               expect(ctrl.maxProjects).to.be.equal("UNLIMITED_PROJECTS")
               expect(ctrl.currentProjects).to.be.equal(1)
-              done()
 
-      it "transfer accept", (done) ->
+
+      it "transfer accept", () ->
           project = Immutable.fromJS({
               id: 1
               slug: "slug"
@@ -255,9 +252,7 @@ describe "TransferProject", ->
                   expect(mocks.location.path).to.be.calledWith("/project/slug/")
                   expect(mocks.tgConfirm.notify).to.be.calledWith("success", "ACCEPTED_PROJECT_OWNERNSHIP", '', 5000)
 
-                  done()
-
-      it "transfer reject", (done) ->
+      it "transfer reject", () ->
           project = Immutable.fromJS({
               id: 1
               slug: "slug"
@@ -279,5 +274,3 @@ describe "TransferProject", ->
               ctrl.transferReject("TOKEN", "this is my reason").then ->
                   expect(mocks.location.path).to.be.calledWith("/project/slug/")
                   expect(mocks.tgConfirm.notify).to.be.calledWith("success", "REJECTED_PROJECT_OWNERNSHIP", '', 5000)
-
-                  done()

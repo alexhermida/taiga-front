@@ -48,7 +48,7 @@ describe "ProfileBar", ->
         _mocks()
         _inject()
 
-    it "user stats filled", (done) ->
+    it "user stats filled", () ->
         userId = 2
         stats = Immutable.fromJS([
             {id: 1},
@@ -66,5 +66,4 @@ describe "ProfileBar", ->
 
         setTimeout ( ->
             expect(ctrl.stats.toJS()).to.be.eql(stats.toJS())
-            done()
         )

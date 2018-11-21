@@ -98,7 +98,7 @@ describe "ExternalAppController", ->
         _mocks()
         _inject()
 
-    it "not existing application", (done) ->
+    it "not existing application", () ->
         $scope = $rootScope.$new()
 
         mocks.routeParams.application = 6
@@ -113,10 +113,9 @@ describe "ExternalAppController", ->
         setTimeout ( ->
             expect(mocks.tgLoader.start.withArgs(false)).to.be.calledOnce
             expect(mocks.tgXhrErrorService.response.withArgs(error)).to.be.calledOnce
-            done()
         )
 
-    it "existing application and existing token, automatically redirecting to next url", (done) ->
+    it "existing application and existing token, automatically redirecting to next url", () ->
         $scope = $rootScope.$new()
 
         mocks.routeParams.application = 6
@@ -135,10 +134,9 @@ describe "ExternalAppController", ->
             expect(mocks.tgLoader.start.withArgs(false)).to.be.calledOnce
             expect(mocks.window.open.callCount).to.be.equal(1)
             expect(mocks.window.open.calledWith("http://next.url")).to.be.true
-            done()
         )
 
-    it "existing application and creating new token", (done) ->
+    it "existing application and creating new token", () ->
         $scope = $rootScope.$new()
 
         mocks.routeParams.application = 6
@@ -163,7 +161,6 @@ describe "ExternalAppController", ->
             expect(mocks.tgLoader.pageLoaded).to.be.calledOnce
             expect(mocks.window.open.callCount).to.be.equal(1)
             expect(mocks.window.open.calledWith("http://next.url")).to.be.true
-            done()
         )
 
     it "cancel back to previous url", () ->

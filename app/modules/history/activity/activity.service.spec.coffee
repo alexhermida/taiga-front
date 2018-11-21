@@ -74,7 +74,7 @@ describe "tgActivityService", ->
         }
     }
 
-    it "populate history entries", (done) ->
+    it "populate history entries", () ->
         f = fixtures
         mocks.tgResources.history.getHistory.withArgs('activity', f.contentType, f.objId, f.page)
             .promise().resolve(f.response)
@@ -85,7 +85,6 @@ describe "tgActivityService", ->
         expect(activityService.entries.size).to.be.equal(0)
         activityService.fetchEntries().then () ->
             expect(activityService.entries.size).to.be.equal(3)
-            done()
 
     it "reset history entries if objectId change", () ->
         f = fixtures

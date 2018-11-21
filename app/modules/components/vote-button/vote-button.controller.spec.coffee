@@ -54,7 +54,7 @@ describe "VoteButton", ->
         module "taigaComponents"
         _setup()
 
-    it "upvote", (done) ->
+    it "upvote", () ->
         $scope = $rootScope.$new()
 
         mocks.onUpvote = sinon.stub().promise()
@@ -75,9 +75,7 @@ describe "VoteButton", ->
             expect(mocks.onUpvote).to.be.calledOnce
             expect(ctrl.loading).to.be.false
 
-            done()
-
-    it "downvote", (done) ->
+    it "downvote", () ->
         $scope = $rootScope.$new()
 
         mocks.onDownvote = sinon.stub().promise()
@@ -97,5 +95,3 @@ describe "VoteButton", ->
         promise.finally () ->
             expect(mocks.onDownvote).to.be.calledOnce
             expect(ctrl.loading).to.be.false
-
-            done()

@@ -50,7 +50,7 @@ describe "MostActive", ->
 
         _setup()
 
-    it "fetch", (done) ->
+    it "fetch", () ->
         ctrl = $controller("MostActive")
 
         ctrl.getOrderBy = sinon.stub().returns('week')
@@ -65,8 +65,6 @@ describe "MostActive", ->
 
         promise.finally () ->
             expect(ctrl.loading).to.be.false
-            done()
-
 
     it "order by", () ->
         ctrl = $controller("MostActive")

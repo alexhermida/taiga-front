@@ -109,7 +109,7 @@ describe "UserTimelineController", ->
             })
             myCtrl.scrollDisabled = false
 
-        it "enable scroll on loadTimeline if there are more pages", (done) ->
+        it "enable scroll on loadTimeline if there are more pages", () ->
             response = Immutable.Map({
                 items: [1, 2, 3],
                 next: true
@@ -123,9 +123,7 @@ describe "UserTimelineController", ->
             myCtrl.loadTimeline().then () ->
                 expect(myCtrl.scrollDisabled).to.be.false
 
-                done()
-
-        it "disable scroll on loadTimeline if there are more pages", (done) ->
+        it "disable scroll on loadTimeline if there are more pages", () ->
             response = Immutable.Map({
                 items: [1, 2, 3],
                 next: false
@@ -139,9 +137,7 @@ describe "UserTimelineController", ->
             myCtrl.loadTimeline().then () ->
                 expect(myCtrl.scrollDisabled).to.be.true
 
-                done()
-
-        it "concat response data", (done) ->
+        it "concat response data", () ->
             response = Immutable.Map({
                 items: [1, 2, 3],
                 next: false
@@ -155,5 +151,3 @@ describe "UserTimelineController", ->
 
             myCtrl.loadTimeline().then () ->
                 expect(myCtrl.timelineList.size).to.be.equal(5)
-
-                done()

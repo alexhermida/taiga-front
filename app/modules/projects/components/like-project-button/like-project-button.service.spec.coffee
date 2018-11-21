@@ -86,7 +86,7 @@ describe "tgLikeProjectButtonService", ->
         _setup()
         _inject()
 
-    it "like", (done) ->
+    it "like", () ->
         projectId = 4
 
         mocks.tgResources.projects.likeProject.withArgs(projectId).promise().resolve()
@@ -116,9 +116,7 @@ describe "tgLikeProjectButtonService", ->
             expect(mocks.tgCurrentUserService.setProjects).to.have.been.calledWith(userServiceCheckImmutable)
             expect(mocks.tgProjectService.setProject).to.have.been.calledWith(projectServiceCheckImmutable)
 
-            done()
-
-    it "like, if the user doesn't have the project", (done) ->
+    it "like, if the user doesn't have the project", () ->
         projectId = 4
 
         mocks.tgResources.projects.likeProject.withArgs(projectId).promise().resolve()
@@ -146,9 +144,7 @@ describe "tgLikeProjectButtonService", ->
             expect(mocks.tgCurrentUserService.setProjects).to.not.have.been.called
             expect(mocks.tgProjectService.setProject).to.have.been.calledWith(projectServiceCheckImmutable)
 
-            done()
-
-    it "unlike", (done) ->
+    it "unlike", () ->
         projectId = 5
 
         mocks.tgResources.projects.unlikeProject.withArgs(projectId).promise().resolve()
@@ -173,9 +169,6 @@ describe "tgLikeProjectButtonService", ->
             return _.isEqual(immutable, newProject)
         ), 'projectServiceCheckImmutable'
 
-
         likeButtonService.unlike(projectId).finally () ->
             expect(mocks.tgCurrentUserService.setProjects).to.have.been.calledWith(userServiceCheckImmutable)
             expect(mocks.tgProjectService.setProject).to.have.been.calledWith(projectServiceCheckImmutable)
-
-            done()

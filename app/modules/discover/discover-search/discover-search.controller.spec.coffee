@@ -132,15 +132,13 @@ describe "DiscoverSearch", ->
         expect(ctrl.search).to.have.been.called
         expect(ctrl.page).to.be.equal(1)
 
-    it "showMore", (done) ->
+    it "showMore", () ->
         ctrl = $controller('DiscoverSearch')
 
         ctrl.search = sinon.stub().promise()
 
         ctrl.showMore().then () ->
             expect(ctrl.loadingPagination).to.be.false
-
-            done()
 
         expect(ctrl.loadingPagination).to.be.true
         expect(ctrl.search).to.have.been.called
@@ -213,7 +211,7 @@ describe "DiscoverSearch", ->
         expect(ctrl.fetchByOrderBy).to.have.been.called
         expect(mocks.route.updateParams).to.have.been.calledWith(sinon.match({order_by: 'order-by'}))
 
-    it "fetchByGlobalSearch", (done) ->
+    it "fetchByGlobalSearch", () ->
         ctrl = $controller('DiscoverSearch')
 
         ctrl.fetch = sinon.stub().promise()
@@ -221,22 +219,18 @@ describe "DiscoverSearch", ->
         ctrl.fetchByGlobalSearch().then () ->
             expect(ctrl.loadingGlobal).to.be.false
 
-            done()
-
         expect(ctrl.loadingGlobal).to.be.true
         expect(ctrl.fetch).to.have.been.called
 
         ctrl.fetch.resolve()
 
-    it "fetchByOrderBy", (done) ->
+    it "fetchByOrderBy", () ->
         ctrl = $controller('DiscoverSearch')
 
         ctrl.fetch = sinon.stub().promise()
 
         ctrl.fetchByOrderBy().then () ->
             expect(ctrl.loadingList).to.be.false
-
-            done()
 
         expect(ctrl.loadingList).to.be.true
         expect(ctrl.fetch).to.have.been.called

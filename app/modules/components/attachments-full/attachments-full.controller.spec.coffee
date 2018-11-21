@@ -130,7 +130,7 @@ describe "AttachmentsController", ->
         expect(ctrl.addAttachment).to.have.callCount(3)
 
     describe "deleteattachments", () ->
-        it "success attachment", (done) ->
+        it "success attachment", () ->
             deleteFile = Immutable.Map()
 
             mocks.attachmentsFullService.deleteAttachment = sinon.stub()
@@ -152,9 +152,8 @@ describe "AttachmentsController", ->
 
             ctrl.deleteAttachment(deleteFile).then () ->
                 expect(askResponse.finish).have.been.calledOnce
-                done()
 
-        it "error attachment", (done) ->
+        it "error attachment", () ->
             deleteFile = Immutable.Map()
 
             mocks.attachmentsFullService.deleteAttachment = sinon.stub()
@@ -180,7 +179,6 @@ describe "AttachmentsController", ->
             ctrl.deleteAttachment(deleteFile).then () ->
                 expect(askResponse.finish.withArgs(false)).have.been.calledOnce
                 expect(mocks.confirm.notify.withArgs('error', null, 'error'))
-                done()
 
     it "loadAttachments", () ->
         mocks.attachmentsFullService.loadAttachments = sinon.spy()

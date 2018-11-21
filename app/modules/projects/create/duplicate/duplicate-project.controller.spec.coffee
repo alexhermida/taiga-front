@@ -156,7 +156,7 @@ describe "DuplicateProjectController", ->
         expect(ctrl.limitMembersPrivateProject).to.be.equal(1)
         expect(ctrl.limitMembersPublicProject).to.be.equal(2)
 
-    it 'duplicate project', (done) ->
+    it 'duplicate project', () ->
         ctrl.referenceProject = Immutable.fromJS({
             id: 1
         })
@@ -179,7 +179,6 @@ describe "DuplicateProjectController", ->
             expect(ctrl.formSubmitLoading).to.be.false
             expect(mocks.location.path).to.be.calledWith("/project/slug/")
             expect(mocks.currentUserService.loadProjects).to.have.been.called
-            done()
 
     it 'check if the user can create a private projects', () ->
         mocks.currentUserService.canCreatePrivateProjects = sinon.stub().returns({valid: true})

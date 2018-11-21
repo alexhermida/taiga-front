@@ -46,7 +46,7 @@ describe "WorkingOn", ->
         _mocks()
         _inject()
 
-    it "get work in progress items", (done) ->
+    it "get work in progress items", () ->
         userId = 3
 
         workInProgress = Immutable.fromJS({
@@ -106,5 +106,3 @@ describe "WorkingOn", ->
                 {id: 9, modified_date: '2015-01-02'},
                 {id: 7, modified_date: '2015-01-01'}
             ])
-
-            done()

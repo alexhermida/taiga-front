@@ -91,7 +91,7 @@ describe "ProfileController", ->
         _mocks()
         _inject()
 
-    it "define external user", (done) ->
+    it "define external user", () ->
         $scope = $rootScope.$new()
 
         mocks.routeParams.slug = "user-slug"
@@ -118,10 +118,9 @@ describe "ProfileController", ->
             expect(ctrl.user).to.be.equal(user)
             expect(ctrl.isCurrentUser).to.be.false
             expect(mocks.appMetaService.setAll.calledWithExactly("user-profile-page-title", "bio")).to.be.true
-            done()
         )
 
-    it "non-existent user", (done) ->
+    it "non-existent user", () ->
         $scope = $rootScope.$new()
 
         mocks.routeParams.slug = "user-slug"
@@ -134,10 +133,9 @@ describe "ProfileController", ->
 
         setTimeout ( ->
             expect(mocks.xhrErrorService.response.withArgs(error)).to.be.calledOnce
-            done()
         )
 
-    it "define current user", (done) ->
+    it "define current user", () ->
         $scope = $rootScope.$new()
 
         user = Immutable.fromJS({
@@ -162,10 +160,9 @@ describe "ProfileController", ->
             expect(ctrl.user).to.be.equal(user)
             expect(ctrl.isCurrentUser).to.be.true
             expect(mocks.appMetaService.setAll.withArgs("user-profile-page-title", "bio")).to.be.calledOnce
-            done()
         )
 
-    it "non-active user", (done) ->
+    it "non-active user", () ->
         $scope = $rootScope.$new()
 
         mocks.routeParams.slug = "user-slug"
@@ -183,5 +180,4 @@ describe "ProfileController", ->
 
         setTimeout ( ->
             expect(mocks.xhrErrorService.notFound).to.be.calledOnce
-            done()
         )

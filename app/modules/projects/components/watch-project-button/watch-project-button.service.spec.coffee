@@ -93,7 +93,7 @@ describe "tgWatchProjectButtonService", ->
         _setup()
         _inject()
 
-    it "watch", (done) ->
+    it "watch", () ->
         projectId = 4
         notifyLevel = 3
 
@@ -125,9 +125,7 @@ describe "tgWatchProjectButtonService", ->
             expect(mocks.tgCurrentUserService.setProjects).to.have.been.calledWith(userServiceCheckImmutable)
             expect(mocks.tgProjectService.setProject).to.have.been.calledWith(projectServiceCheckImmutable)
 
-            done()
-
-    it "watch, if the user doesn't have the projects", (done) ->
+    it "watch, if the user doesn't have the projects", () ->
         projectId = 4
         notifyLevel = 3
 
@@ -156,9 +154,7 @@ describe "tgWatchProjectButtonService", ->
             expect(mocks.tgCurrentUserService.setProjects).to.not.have.been.called
             expect(mocks.tgProjectService.setProject).to.have.been.calledWith(projectServiceCheckImmutable)
 
-            done()
-
-    it "watch another option", (done) ->
+    it "watch another option", () ->
         projectId = 5
         notifyLevel = 3
 
@@ -190,9 +186,7 @@ describe "tgWatchProjectButtonService", ->
             expect(mocks.tgCurrentUserService.setProjects).to.have.been.calledWith(userServiceCheckImmutable)
             expect(mocks.tgProjectService.setProject).to.have.been.calledWith(projectServiceCheckImmutable)
 
-            done()
-
-    it "unwatch", (done) ->
+    it "unwatch", () ->
         projectId = 5
 
         mocks.tgResources.projects.unwatchProject.withArgs(projectId).promise().resolve()
@@ -218,9 +212,6 @@ describe "tgWatchProjectButtonService", ->
             return _.isEqual(immutable, newProject)
         ), 'projectServiceCheckImmutable'
 
-
         watchButtonService.unwatch(projectId).finally () ->
             expect(mocks.tgCurrentUserService.setProjects).to.have.been.calledWith(userServiceCheckImmutable)
             expect(mocks.tgProjectService.setProject).to.have.been.calledWith(projectServiceCheckImmutable)
-
-            done()

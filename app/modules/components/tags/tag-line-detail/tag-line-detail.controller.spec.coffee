@@ -64,7 +64,7 @@ describe "TagLineDetail", ->
 
         TagLineController = controller "TagLineCtrl"
 
-    it "on delete tag success", (done) ->
+    it "on delete tag success", () ->
         tag = {
             name: 'tag1'
         }
@@ -88,17 +88,17 @@ describe "TagLineDetail", ->
             ])
             expect(TagLineController.loadingRemoveTag).to.be.false
             expect(mocks.rootScope.$broadcast).to.be.calledWith("object:updated")
-            done()
 
-    it "on delete tag error", (done) ->
+
+    it "on delete tag error", () ->
         mocks.tgQueueModelTransformation.save.promise().reject(new Error('error'))
 
         TagLineController.onDeleteTag(['tag1']).finally () ->
             expect(TagLineController.loadingRemoveTag).to.be.false
             expect(mocks.tgConfirm.notify).to.be.calledWith("error")
-            done()
 
-    it "on add tag success", (done) ->
+
+    it "on add tag success", () ->
         tag = 'tag1'
         tagColor = '#eee'
 
@@ -129,9 +129,8 @@ describe "TagLineDetail", ->
             expect(TagLineController.addTag).to.be.false
             expect(TagLineController.loadingAddTag).to.be.false
 
-            done()
 
-    it "on add tag error", (done) ->
+    it "on add tag error", () ->
         tag = 'tag1'
         tagColor = '#eee'
 
@@ -154,4 +153,4 @@ describe "TagLineDetail", ->
         promise.then (item) ->
             expect(TagLineController.loadingAddTag).to.be.false
             expect(mocks.tgConfirm.notify).to.be.calledWith("error")
-            done()
+

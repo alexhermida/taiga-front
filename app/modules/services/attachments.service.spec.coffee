@@ -122,7 +122,7 @@ describe "tgAttachmentsService", ->
 
         expect(mocks.rs.attachments.delete).to.have.been.calledWith('us', 2)
 
-     it "upload", (done) ->
+    it "upload", () ->
         file = {
             id: 1
         }
@@ -141,9 +141,8 @@ describe "tgAttachmentsService", ->
 
         attachmentsService.upload(file, objId, projectId, 'us').then () ->
             expect(mocks.rs.attachments.create).to.have.been.calledOnce
-            done()
 
-    it "patch", (done) ->
+    it "patch", () ->
         file = {
             id: 1
         }
@@ -165,7 +164,6 @@ describe "tgAttachmentsService", ->
 
         attachmentsService.patch(objId, 'us', patch).then () ->
             expect(mocks.rs.attachments.patch).to.have.been.calledOnce
-            done()
 
     it "error", () ->
         mocks.translate.instant.withArgs("ATTACHMENT.ERROR_MAX_SIZE_EXCEEDED").returns("msg")

@@ -100,7 +100,7 @@ describe "EpicRow", ->
         }
         expect(ctrl.percentage).to.be.equal("100%")
 
-    it "Update Epic Status Success", (done) ->
+    it "Update Epic Status Success", () ->
         ctrl = controller "EpicRowCtrl", null, {
             epic: Immutable.fromJS({
                 id: 1
@@ -121,9 +121,8 @@ describe "EpicRow", ->
         ctrl.updateStatus(statusId).then () ->
             expect(ctrl.loadingStatus).to.be.false
             expect(ctrl.displayStatusList).to.be.false
-            done()
 
-    it "Update Epic Status Error", (done) ->
+    it "Update Epic Status Error", () ->
         ctrl = controller "EpicRowCtrl", null, {
             epic: Immutable.fromJS({
                 id: 1
@@ -142,9 +141,8 @@ describe "EpicRow", ->
             expect(ctrl.loadingStatus).to.be.false
             expect(ctrl.displayStatusList).to.be.false
             expect(mocks.tgConfirm.notify).have.been.calledWith('error')
-            done()
 
-    it "display User Stories", (done) ->
+    it "display User Stories", () ->
         ctrl = controller "EpicRowCtrl", null, {
             epic: Immutable.fromJS({
                 id: 1
@@ -163,9 +161,8 @@ describe "EpicRow", ->
         ctrl.toggleUserStoryList().then () ->
             expect(ctrl.displayUserStories).to.be.true
             expect(ctrl.epicStories).is.equal(data)
-            done()
 
-    it "display User Stories error", (done) ->
+    it "display User Stories error", () ->
         ctrl = controller "EpicRowCtrl", null, {
             epic: Immutable.fromJS({
                 id: 1
@@ -182,7 +179,6 @@ describe "EpicRow", ->
         ctrl.toggleUserStoryList().then () ->
             expect(ctrl.displayUserStories).to.be.false
             expect(mocks.tgConfirm.notify).have.been.calledWith('error')
-            done()
 
     it "display User Stories error", ->
         ctrl = controller "EpicRowCtrl", null, {

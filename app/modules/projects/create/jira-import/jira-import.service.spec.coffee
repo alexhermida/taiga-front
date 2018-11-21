@@ -69,22 +69,20 @@ describe "tgJiraImportService", ->
 
         _setup()
 
-    it "fetch projects", (done) ->
+    it "fetch projects", () ->
         service.setToken(123, 'http://test')
         mocks.resources.jiraImporter.listProjects.withArgs("http://test", 123).promise().resolve('projects')
 
         service.fetchProjects().then () ->
             service.projects = "projects"
-            done()
 
-    it "fetch user", (done) ->
+    it "fetch user", () ->
         service.setToken(123, 'http://test')
         projectId = 3
         mocks.resources.jiraImporter.listUsers.withArgs("http://test", 123, projectId).promise().resolve('users')
 
         service.fetchUsers(projectId).then () ->
             service.projectUsers = 'users'
-            done()
 
     it "import project", () ->
         service.setToken(123, 'http://test')
@@ -95,7 +93,7 @@ describe "tgJiraImportService", ->
 
         expect(mocks.resources.jiraImporter.importProject).to.have.been.calledWith('url', 123, projectId, true, true, true)
 
-    it "get auth url", (done) ->
+    it "get auth url", () ->
         service.setToken(123, 'http://test')
         projectId = 3
 
@@ -109,9 +107,8 @@ describe "tgJiraImportService", ->
 
         service.getAuthUrl().then (url) ->
             expect(url).to.be.equal("url123")
-            done()
 
-    it "authorize", (done) ->
+    it "authorize", () ->
         service.setToken(123, 'http://test')
         projectId = 3
 
@@ -126,4 +123,3 @@ describe "tgJiraImportService", ->
 
         service.authorize().then (token) ->
             expect(token).to.be.deep.equal({url: "http://test", token: "token123"})
-            done()

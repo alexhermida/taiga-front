@@ -92,7 +92,7 @@ describe "AsanaImportCtrl", ->
         expect(ctrl.step).to.be.equal('project-select-asana')
         expect(mocks.asanaService.fetchProjects).have.been.called
 
-    it "on select project reload projects", (done) ->
+    it "on select project reload projects", () ->
         project = Immutable.fromJS({
             id: 1,
             name: "project-name"
@@ -110,7 +110,6 @@ describe "AsanaImportCtrl", ->
             expect(ctrl.fetchingUsers).to.be.false
             expect(ctrl.step).to.be.equal('project-form-asana')
             expect(ctrl.project).to.be.equal(project)
-            done()
 
     it "on save project details reload users", () ->
         project = Immutable.fromJS({
@@ -124,7 +123,7 @@ describe "AsanaImportCtrl", ->
         expect(ctrl.step).to.be.equal('project-members-asana')
         expect(ctrl.project).to.be.equal(project)
 
-    it "on select user init import", (done) ->
+    it "on select user init import", () ->
         users = Immutable.fromJS([
             {
                 id: 0
@@ -168,5 +167,3 @@ describe "AsanaImportCtrl", ->
             expect(loaderObj.start).have.been.called
             expect(loaderObj.stop).have.been.called
             expect(mocks.asanaService.importProject).have.been.calledWith('project-name', 'project-description', 1, users, false, true)
-
-            done()

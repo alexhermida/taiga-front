@@ -72,7 +72,7 @@ describe "tgHome", ->
         _setup()
         _inject()
 
-    it "get work in progress by user", (done) ->
+    it "get work in progress by user", () ->
         userId = 3
 
         project1 = {id: 1, name: "fake1", slug: "project-1"}
@@ -210,5 +210,3 @@ describe "tgHome", ->
                         }]
                     }
                 })
-
-                done()

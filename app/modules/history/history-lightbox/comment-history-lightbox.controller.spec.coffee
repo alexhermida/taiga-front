@@ -44,7 +44,7 @@ describe "LightboxDisplayHistoricController", ->
         inject ($controller) ->
             controller = $controller
 
-    it "load historic", (done) ->
+    it "load historic", () ->
         historicLbCtrl = controller "LightboxDisplayHistoricCtrl"
 
         historicLbCtrl.name = "type"
@@ -60,4 +60,3 @@ describe "LightboxDisplayHistoricController", ->
 
         historicLbCtrl._loadHistoric().then (data) ->
             expect(historicLbCtrl.commentHistoryEntries).is.equal(data)
-            done()
